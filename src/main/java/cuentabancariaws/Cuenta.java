@@ -4,20 +4,44 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "cuenta")
 public class Cuenta {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long idcuenta;
 
-    private Integer idcuenta;
 
-    public Integer getIdcuenta() {
+    @NotNull
+    //private Integer idcuenta;
+
+
+    @OneToMany
+    private List<Movimientos> movimientosList = new ArrayList<>();
+
+    public List<Movimientos> getMovimientosList() {
+        return movimientosList;
+    }
+
+    public void setMovimientosList(List<Movimientos> movimientosList) {
+        this.movimientosList = movimientosList;
+    }
+
+    public Long getIdcuenta() {
         return idcuenta;
     }
-    public void setIdcuenta(Integer idcuenta) {
+    public void setIdcuenta(Long idcuenta) {
         this.idcuenta = idcuenta;
     }
 
@@ -64,10 +88,11 @@ public class Cuenta {
 
 
 
+
+
     @Override
     public String toString() {
         return "Cuenta{" +
-                "id=" + id +
                 "idcuenta=" + idcuenta +
                 ", iban='" + iban + '\'' +
                 ", titular='" + titular + '\'' +
@@ -76,4 +101,3 @@ public class Cuenta {
                 '}';
     }
 }
-
