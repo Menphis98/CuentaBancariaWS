@@ -27,7 +27,7 @@ public class CuentaController {
     @PutMapping("/cuenta/{idcuenta}")
     public Cuenta updateCuenta(@PathVariable Long idcuenta, @Valid @RequestBody Cuenta cuentaRequest) {
         return cuentaRepository.findById(idcuenta).map(cuenta -> {
-            cuenta.setIdcuenta(cuentaRequest.getIdcuenta());
+            //cuenta.setIdcuenta(cuentaRequest.getIdcuenta());
             cuenta.setIban(cuentaRequest.getIban());
             cuenta.setTitular(cuentaRequest.getTitular());
             cuenta.setTipo(cuentaRequest.getTipo());
@@ -44,10 +44,10 @@ public class CuentaController {
         }).orElseThrow(() -> new ResourceNotFoundException("idcuenta " + idcuenta + " not found"));
     }
 
-    @GetMapping("/cuenta/{titular}")
+    /*@GetMapping("/cuenta/{titular}")
     public Page<Cuenta> getAllCuentas(Pageable pageable) {
-        return cuentaRepository.findAll(pageable);
-    }
+        return cuentaRepository.findByTitular();
+    }*/
 
     @GetMapping("/cuenta")
     public Page<Cuenta> getAllCuenta(Pageable pageable) {return cuentaRepository.findAll(pageable);

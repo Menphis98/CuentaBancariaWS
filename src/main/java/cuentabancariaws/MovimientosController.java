@@ -1,11 +1,10 @@
 package cuentabancariaws;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -18,10 +17,6 @@ public class MovimientosController {
     @Autowired
     private MovimientosRepository movimientosRepository;
 
-    /*@PostMapping("/cuenta/{idcuenta}/movimientos")
-    public Movimientos createMovimientos(@Valid @RequestBody Movimientos movimientos) {
-        return movimientosRepository.save(movimientos);
-    }*/
 
     @PostMapping("/cuenta/{idcuenta}/movimientos")
     public Movimientos createMovimientos(@PathVariable (value = "idcuenta") Long idcuenta,
@@ -30,8 +25,12 @@ public class MovimientosController {
 
         return cuentaRepository.findById(idcuenta).map(cuenta -> {
             movimientos.setCuenta(cuenta);
-            return movimientosRepository.save(movimientos);
+            cuenta.getMovimientosList().add(movimientos);
+            movimientosRepository.save(movimientos);
+            cuentaRepository.save(cuenta);
+            return movimientos;
         }).orElseThrow(() -> new ResourceNotFoundException("idcuenta " + idcuenta + " not found"));
 
     }
+
 }
