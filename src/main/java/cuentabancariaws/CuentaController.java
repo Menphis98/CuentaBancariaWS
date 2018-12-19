@@ -44,10 +44,6 @@ public class CuentaController {
         }).orElseThrow(() -> new ResourceNotFoundException("idcuenta " + idcuenta + " not found"));
     }
 
-    /*@GetMapping("/cuenta/{titular}")
-    public Page<Cuenta> getAllCuentas(Pageable pageable) {
-        return cuentaRepository.findByTitular();
-    }*/
 
     @GetMapping("/cuenta")
     public Page<Cuenta> getAllCuenta(Pageable pageable) {return cuentaRepository.findAll(pageable);

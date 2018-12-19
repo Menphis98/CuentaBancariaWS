@@ -13,13 +13,11 @@ curl -X GET 'http://localhost:8080/cuenta'
 #Damos de alta una nueva cuenta
 curl -i -X POST -H "Content-Type:application/json" -d '{"iban":"AHDBGDSYSD"}' 'http://localhost:8080/cuenta'
 
-#Eliminamos la cuenta3
-curl -i -X DELETE 'http://localhost:8080/cuenta/3'
-
-#Buscamos una cuenta por titular, en este caso Mouctar
-curl http://localhost:8080/cuenta/search/findByTitular?titular=Mouctar
+#Eliminamos la cuenta1
+curl -i -X DELETE 'http://localhost:8080/cuenta/1'
 
 #Damos de alta un movimiento en la cuenta 1
 curl -i -X POST -H "Content-Type:application/json" -d '{"concepto":"mouctar", "importe":"21.34", "saldoactual":"12345.65"}' 'http://localhost:8080/cuenta/1/movimientos'
 
-#Listamos los movimientos de una cuenta
+#Listamos los movimientos de la cuenta 1
+curl -X GET 'http://localhost:8080/cuenta/1/movimientos'
