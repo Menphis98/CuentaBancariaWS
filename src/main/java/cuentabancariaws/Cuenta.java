@@ -28,6 +28,7 @@ public class Cuenta {
 
 
     @OneToMany
+
     private List<Movimientos> movimientosList = new ArrayList<>();
 
     public List<Movimientos> getMovimientosList() {

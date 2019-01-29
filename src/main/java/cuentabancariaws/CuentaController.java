@@ -1,4 +1,6 @@
 package cuentabancariaws;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,7 +43,8 @@ public class CuentaController {
         return cuentaRepository.findById(idcuenta).map(cuenta -> {
             cuentaRepository.delete(cuenta);
             return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException("idcuenta " + idcuenta + " not found"));
+        }
+        ).orElseThrow(() -> new ResourceNotFoundException("idcuenta " + idcuenta + " not found"));
     }
 
 

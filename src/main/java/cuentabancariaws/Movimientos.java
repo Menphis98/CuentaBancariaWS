@@ -1,6 +1,9 @@
 package cuentabancariaws;
 
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -10,6 +13,7 @@ import java.util.Date;
 public class Movimientos {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    //@OnDelete(action = OnDeleteAction.CASCADE)
     private long idmovimiento;
 
     private Long idcuenta;
@@ -64,6 +68,7 @@ public class Movimientos {
 
     @ManyToOne
     //@JoinColumn(name="idcuenta")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Cuenta cuenta;
 
     public Cuenta getCuenta() {
